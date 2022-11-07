@@ -71,11 +71,12 @@ class Login:
         "lesson_id": ""
     }
 
-    def __init__(self, laravel_session):
+    def __init__(self, laravel_session, city):
         self.laravel_session = laravel_session
         self.headers1["Cookie"] = "laravel_session=" + self.laravel_session
         self.headers2["Cookie"] = "laravel_session=" + self.laravel_session
         self.key = ["打开页面", "开始学习", "播放完成", "课后答题"]
+        self.city = city
         self.info = ""
         self.guid = ""
         self.tc = ""
@@ -112,7 +113,7 @@ class Login:
 
     def run(self):
         info = ["[%s]" % self.info,
-                "[%s,\"prov\":\"10\",\"city\":\"12\"}]" % self.info]
+                "[%s,\"prov\":\"10\",\"city\":\"%s\"}]" % (self.info, self.city)]
         self.tc = self.get_time(14)
         for i in range(4):
             self.tn = self.get_time(14)
@@ -172,6 +173,6 @@ class Login:
         return num
 
 
-new = Login("")
+new = Login("", "")
 new.login()
 new.run()
