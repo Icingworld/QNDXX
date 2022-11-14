@@ -1,6 +1,8 @@
 # QNDXX
 江苏青年大学习
 
+`代码仅作学习交流使用！`
+
 ## 使用方法
 1、打开青年大学习页面，抓包获取Cookie值`laravel_session`
 
@@ -25,3 +27,6 @@
 3、填入`main.py`中的`new = Login("laravel_session", "city")`
 
 4、运行脚本
+
+# 运行成功截图
+![success](src/success.png)
