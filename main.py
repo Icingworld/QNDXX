@@ -13,6 +13,8 @@ class Login:
     url2 = "https://service.jiangsugqt.org/youth/lesson/confirm"
     # 大学习事件接口
     url4 = "https://gqti.zzdtec.com/api/event"
+    # 截图接口
+    url5 = "https://h5.cyol.com/special/daxuexi/{lesson}/images/end.jpg"
 
     # 登录请求头 url1
     headers1 = {
@@ -49,13 +51,22 @@ class Login:
 
     # 事件请求头 event
     headers4 = {
-        "accept": "*/*",
-        "content-type": "text/plain",
-        "origin": "https://h5.cyol.com",
-        "accept-language": "zh-cn",
-        "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_8 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.29(0x18001d34) NetType/WIFI Language/zh_CN",
-        "referer": "https://h5.cyol.com/",
-        "accept-encoding": "gzip, deflate, br"
+        "Accept": "*/*",
+        "Content-Type": "text/plain",
+        "Origin": "https://h5.cyol.com",
+        "Accept-Language": "zh-cn",
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_8 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.29(0x18001d34) NetType/WIFI Language/zh_CN",
+        "Referer": "https://h5.cyol.com/",
+        "Accept-Encoding": "gzip, deflate, br"
+    }
+
+    # 截图请求头 end
+    headers5 = {
+        "Accept": "image/webp,image/png,image/svg+xml,image/*;q=0.8,video/*;q=0.8,*/*;q=0.5",
+        "Accept-language": "zh-cn",
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_8 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.29(0x18001d34) NetType/WIFI Language/zh_CN",
+        "Host": "h5.cyol.com",
+        "Accept-Encoding": "gzip, deflate, br"
     }
 
     # 登录
@@ -75,6 +86,7 @@ class Login:
         self.laravel_session = laravel_session
         self.headers1["Cookie"] = "laravel_session=" + self.laravel_session
         self.headers2["Cookie"] = "laravel_session=" + self.laravel_session
+        self.url = ""
         self.key = ["打开页面", "开始学习", "播放完成", "课后答题"]
         self.city = city
         self.info = ""
@@ -100,9 +112,9 @@ class Login:
         # post https://service.jiangsugqt.org/youth/lesson/confirm
         r3 = requests.post(url=self.url2, headers=self.headers2, data=self.data2)
         b3 = BeautifulSoup(r3.content, "lxml")
-        url = self.extract_url(b3)
-        self.u = "https://h5.cyol.com/special/daxuexi/%s/m.html" % url
-        self.r = "https://h5.cyol.com/special/daxuexi/%s/index.html" % url
+        self.url = self.extract_url(b3)
+        self.u = "https://h5.cyol.com/special/daxuexi/%s/m.html" % self.url
+        self.r = "https://h5.cyol.com/special/daxuexi/%s/index.html" % self.url
         # get https://h5.cyol.com/special/daxuexi/%s/m.html
         self.headers3["Cookie"] = "wdlast=%s" % self.get_time(11)
         r4 = requests.get(url=self.u, headers=self.headers3)
@@ -138,6 +150,12 @@ class Login:
             else:
                 raise Exception("登录错误")
             time.sleep(3)
+
+    def img(self):
+        self.url5 = self.url5.replace("{lesson}", self.url)
+        result = requests.get(url=self.url5, headers=self.headers5)
+        with open("result.jpg", "wb") as f:
+            f.write(result.content)
 
     @staticmethod
     def extract_content(content: BeautifulSoup) -> tuple:
