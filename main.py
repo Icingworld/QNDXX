@@ -151,7 +151,7 @@ class Login:
                 raise Exception("登录错误")
             time.sleep(3)
 
-    def img(self):
+    def save_img(self):
         self.url5 = self.url5.replace("{lesson}", self.url)
         result = requests.get(url=self.url5, headers=self.headers5)
         with open("result.jpg", "wb") as f:
@@ -194,3 +194,4 @@ class Login:
 new = Login("", "")
 new.login()
 new.run()
+new.save_img()
