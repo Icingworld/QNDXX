@@ -134,7 +134,7 @@ class Login:
             post = requests.post(url=self.url4, headers=self.headers4, data=json.dumps(data3))
             b = BeautifulSoup(post.content, "lxml")
             if "ok" in str(b):
-                print("完成模块 %s 成功" % self.n)
+                print("模块 %s 成功" % self.n)
             else:
                 raise Exception("登录错误")
             time.sleep(3)
