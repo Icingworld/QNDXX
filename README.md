@@ -4,7 +4,7 @@
 `代码仅作学习交流使用！`
 
 ## 使用方法
-1、打开青年大学习页面，抓包获取Cookie值`laravel_session`
+1、打开青年大学习页面，对域名`https://service.jiangsugqt.org`抓包，获取Cookie值`laravel_session`
 
 2、查看城市代码
 
