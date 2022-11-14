@@ -30,3 +30,6 @@
 
 # 运行成功截图
 ![success](src/success.png)
+
+截图保存为`result.jpg`
+![result](src/result.jpg)
