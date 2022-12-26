@@ -166,7 +166,7 @@ class Login:
 
     @staticmethod
     def extract_url(content: BeautifulSoup) -> str:
-        url = re.search("daxuexi\\\/[0-9a-zA-Z]+\\\/index.html", str(content)).group(0)[9:-12]
+        url = re.search("daxuexi\\\/[0-9a-zA-Z]+\\\/[0-9a-z]+.html", str(content)).group(0)[9:19]
         return url
 
     @staticmethod
