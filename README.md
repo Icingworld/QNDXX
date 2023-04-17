@@ -33,3 +33,5 @@
 
 截图保存为`result.jpg`
 ![result](src/result.jpg)
+
+# 由于本人过于懒惰，懒得运行脚本，本项目停止维护
